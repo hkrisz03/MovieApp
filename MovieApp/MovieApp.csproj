@@ -9,30 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\batman.jpg" />
-    <None Remove="Images\DesignBase.png" />
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Fonts\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\batman.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\DesignBase.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Dexter.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Compile Update="Utils\Converters\InverseBooleanToVisibilityConverter.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
   </ItemGroup>
 
 </Project>

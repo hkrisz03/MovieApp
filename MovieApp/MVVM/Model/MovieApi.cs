@@ -1,15 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace MovieApp.MVVM.Model
 {
@@ -19,7 +11,7 @@ namespace MovieApp.MVVM.Model
         {
             var headers = new Dictionary<string, string>
             {
-                { "x-rapidapi-key", "05663317ebmsh594a98da95da942p134351jsn27869b438227" },
+                { "x-rapidapi-key", "9ef2b7c24bmsh3e07f666b690bfep1f80eajsne4294a75043c" },
                 { "x-rapidapi-host", "imdb236.p.rapidapi.com" },
             };
 
@@ -36,6 +28,7 @@ namespace MovieApp.MVVM.Model
             {
                 // For System.Text.Json:
                 string content = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine(content);
                 return JsonConvert.DeserializeObject<ObservableCollection<MovieModel>>(content);
             }
             else

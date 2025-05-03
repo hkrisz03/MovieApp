@@ -4,6 +4,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Theme/WatchlistButtonTheme.xaml"/>
+        <ResourceDictionary Source="/Theme/RateButtonTheme.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
                 <DataTemplate x:Key="MovieCard">
@@ -11,67 +12,116 @@
                         Width="200"
                         CornerRadius="0,12,12,12"
                         Background="#1A1A1A"
-                        Margin="0,0,5,0">
+                        Margin="0,0,10,10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="290"/>
-                            <RowDefinition  Height="35"/>
-                                <RowDefinition Height="70"/>
+                            <RowDefinition  Height="40"/>
+                                <RowDefinition Height="65"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="1"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
-                                    Orientation="Horizontal">
-                    <TextBlock Text="Rate this movie:" Foreground="White" Margin="0,5,0,0"/>
-                    <Slider Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Width="150"/>
-                    <TextBlock Text="{Binding AverageRating}"
-                                       FontWeight="SemiBold"
-                                       Margin="5,5,0,0"
-                                       FontSize="16"
-                                       Foreground="White"/>
-
+                                    Orientation="Horizontal"
+                                    Margin="5,3,3,0">
+                            
                             <TextBlock Text="⭐"
                                        FontWeight="SemiBold"
-                                       Margin="5,5,0,0"
-                                       FontSize="16"
+                                       Margin="0,0,0,2"
+                                       VerticalAlignment="Center"
+                                       FontSize="24"
                                        Foreground="yellow"/>
-                        </StackPanel>
+                            
+                            <TextBlock Text="{Binding AverageRating}"
+                                       FontWeight="SemiBold"
+                                       Margin="5,0,5,0"
+                                       FontSize="16"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"/>
+
+                    <Button Style="{StaticResource rateBtn}"
+                            Command="{Binding DataContext.RateMovieCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            CommandParameter="{Binding}"/>
+
+                    <!-- Your rating number (only shows when rated) -->
+                    <TextBlock Text="{Binding YourRating}"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,5,0"
+                                   FontSize="16"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"/>
+
+
+
+                </StackPanel>
                         <StackPanel Grid.Row="2"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
-                                    Orientation="Vertical">
+                                    Orientation="Vertical"
+                                    Margin="5,0,5,0">
 
-                                <TextBlock Text="{Binding PrimaryTitle}"
+                    <TextBlock Text="{Binding PrimaryTitle}"
                                            TextWrapping="Wrap"
                                            TextTrimming="WordEllipsis"
                                            FontWeight="SemiBold"
                                            Margin="5,0,5,0"
                                            FontSize="16"
-                                           Foreground="White"/>
-                        </StackPanel>
+                                           Foreground="White">
+                        <TextBlock.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" 
+                                          Command="{Binding DataContext.ShowMovieDetailsCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                          CommandParameter="{Binding}"/>
+                        </TextBlock.InputBindings>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="TextDecorations" Value="Underline"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </StackPanel>
 
                         <StackPanel Grid.Row="3"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Orientation="Vertical">
 
-                        <local:HoverButton Content="Watchlist"
-                                           bgColor="#2c2c2c"
-                                           hoverColor="#30353c"
-                                           x:Name="WatchlistBtn"
-                                           Style="{StaticResource buttonka}"/>
-
-                                
+                    <Button Style="{StaticResource WatchlistToggleBtn}"
+                            Command="{Binding DataContext.ToggleWatchlistCommand, 
+                                    RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"/>
 
 
-                            </StackPanel>
+
+
+                </StackPanel>
                         
                             <Border CornerRadius="0,12,0,0">
                                 <Border.Background>
                                     <ImageBrush Stretch="Fill" ImageSource="{Binding PrimaryImage}" x:Name="movieImage"/>
                                 </Border.Background>
+                                <Border.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick"
+                                                  Command="{Binding DataContext.ShowMovieDetailsCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                  CommandParameter="{Binding}"
+                                    />
+                                </Border.InputBindings>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Opacity" Value="0.6"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                             </Border>
                             
                         
